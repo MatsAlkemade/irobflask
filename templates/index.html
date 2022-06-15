@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Smart Fridge</title>
+{% endblock %}
+
+{% block body %}
+<main>
+    <div class="barcodescanner">
+        <h1>Barcode scanner</h1>
+        <div class="scannerContainer">
+            <div id="qr-reader"></div>
+            <div id="cooldownBanner">
+                <img src="{{ url_for('static', filename='img/loading.svg') }}" alt="Loading...">
+            </div>
+        </div>
+        <h2>Barcode</h2>
+        <p id="barcodeResult"></p>
+    </div>
+    <div class="productlist">
+        <h1>Producten</h1>
+        <table class="productlist__table" id="productlist__table">
+            <thead>
+                <tr>
+                    <th>Product naam</th>
+                    <th>Productcode</th>
+                    <th>Datum toegevoegd</th>
+                    <th>Acties</th>
+                </tr>
+            </thead>
+            <tbody id="productlist__table__body">
+            {% for product in products %}
+                <tr id="{{ product.id }}">
+                    <td>{{ product.product_name }}</td>
+                    <td>{{ product.productcode }}</td>
+                    <td>{{ product.date_created.date() }}</td>
+                    <td>
+                        <button class="productlist__btn" onclick="deleteProduct('{{ product.id }}')">Verwijder</button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div id="bcModal" class="bcModal">
+            <div id="bcModal-content" class="bcModal-content">
+                <span id="closeBcModalBtn" class="closeBcModalBtn">&times;</span>
+                <h2>Barcode informatie</h2>
+                <form action="/" method="POST" id="form" class="barcodeForm">
+                    <label for="productcode">Productcode</label>
+                    <input type="text" name="productcode" id="productcode" value="" required>
+                    <br>
+                    <label for="product_naam">Product naam</label>
+                    <input type="text" name="product_name" id="product_name" value="" placeholder="Pak melk 1L..." required>
+                    <br>
+                    <span id="bcRequired" style="color:rgba(255,0,0,0);font-size:11px;">Alle velden zijn verplicht</span>
+                    <br>
+                    <button type="button" class="bcSaveBtn" id="bcSaveBtn">Opslaan</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+{% endblock %}
