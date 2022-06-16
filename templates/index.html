@@ -41,11 +41,12 @@
             {% endfor %}
             </tbody>
         </table>
-
-        <div id="bcModal" class="bcModal">
-            <div id="bcModal-content" class="bcModal-content">
-                <span id="closeBcModalBtn" class="closeBcModalBtn">&times;</span>
-                <h2>Barcode informatie</h2>
+    </div>
+    <div id="bcModal" class="bcModal">
+        <div id="bcModal-content" class="bcModal-content">
+            <span id="closeBcModalBtn" class="closeBcModalBtn">&times;</span>
+            <div id="modalScanBc" class="modalScanBc">
+                <h2>Stap 1 - Barcode informatie</h2>
                 <form action="/" method="POST" id="form" class="barcodeForm">
                     <label for="productcode">Productcode</label>
                     <input type="text" name="productcode" id="productcode" value="" required>
@@ -55,10 +56,19 @@
                     <br>
                     <span id="bcRequired" style="color:rgba(255,0,0,0);font-size:11px;">Alle velden zijn verplicht</span>
                     <br>
-                    <button type="button" class="bcSaveBtn" id="bcSaveBtn">Opslaan</button>
+                    <button type="button" class="modalBtn" id="bcSaveBtn">Opslaan</button>
                 </form>
             </div>
-
+            <div id="modalMakeBg" class="modalMakeBg">
+                <h2>Stap 2 - Achtergrond foto</h2>
+                <p>Klik op de knop om een achtergrond foto te maken.</p>
+                <button class="modalBtn" onclick="openModalNewInv()">Maak foto</button>
+            </div>
+            <div id="modalMakeNewInv" class="modalMakeNewInv">
+                <h2>Stap 3 - Maak template</h2>
+                <p>Klik op de knop om een template te maken.</p>
+                <button class="modalBtn" onclick="makeTemplate()">Maak template</button>
+            </div>
         </div>
     </div>
 </main>

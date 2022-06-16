@@ -12,6 +12,9 @@ const cooldownBanner = document.getElementById("cooldownBanner");
 const bcModal = document.getElementById("bcModal");
 const closeBcModalBtn = document.getElementById("closeBcModalBtn");
 const bcSaveBtn = document.getElementById("bcSaveBtn");
+const modalScanBc = document.getElementById("modalScanBc");
+const modalMakeBg = document.getElementById("modalMakeBg");
+const modalMakeNewInv = document.getElementById("modalMakeNewInv");
 
 function qrCodeSuccessCallback(decodedText, decodedResult){
   if(scanCooldown == false){
@@ -45,6 +48,10 @@ function closeBarcodeModal(){
     document.getElementById("productcode").value = "";
     document.getElementById("product_name").value = "";
     bcModal.style.display = "none";
+    
+    modalScanBc.style.display = "block";
+    modalMakeNewInv.style.display = "none";
+    modalMakeBg.style.display = "none";
     
     setTimeout(() => {
       scanCooldown = false;
@@ -100,8 +107,26 @@ function saveBarcode() {
         cell4.appendChild(node_btn);
       }, 1000);
       
-      closeBarcodeModal();
+      openModalBg();
     });
+}
+
+function openModalBg() {
+  modalScanBc.style.display = "none";
+  modalMakeBg.style.display = "block";
+}
+
+function openModalNewInv() {
+  // Code om python script te runnen background maken
+  
+  modalMakeBg.style.display = "none";
+  modalMakeNewInv.style.display = "block";
+}
+
+function makeTemplate(){
+  // Code om python script te runnen template maken
+  
+  closeBarcodeModal();
 }
 
 closeBcModalBtn.onclick = function() {
