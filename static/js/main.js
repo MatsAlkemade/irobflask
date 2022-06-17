@@ -139,10 +139,6 @@ window.onclick = function(event) {
   }
 }
 
-window.onload = function(event) {
-  callPyFunc("hoi");
-}
-
 function callPyFunc(input) {
   $.ajax({
       type: "POST",
