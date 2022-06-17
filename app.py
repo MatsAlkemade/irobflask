@@ -65,7 +65,7 @@ def delete(id):
 @app.route('/python', methods=["POST"])
 def python():
     # roep main.py aan
-    pass
+    return "Success"
     
 @app.errorhandler(404)
 def page_not_found(e):
