@@ -2,6 +2,7 @@ from flask import Flask,jsonify,redirect,render_template,request,redirect,make_r
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import pytz
+import static.py.main as main
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
@@ -60,6 +61,11 @@ def delete(id):
         })
     except:
         return 'Er is iets foutgegaan'
+
+@app.route('/python', methods=["POST"])
+def python():
+    # roep main.py aan
+    return "Success"
     
 @app.errorhandler(404)
 def page_not_found(e):

@@ -118,14 +118,14 @@ function openModalBg() {
 
 function openModalNewInv() {
   // Code om python script te runnen background maken
-  
+  //callPyFunc("background");
   modalMakeBg.style.display = "none";
   modalMakeNewInv.style.display = "block";
 }
 
 function makeTemplate(){
   // Code om python script te runnen template maken
-  
+  //callPyFunc("template");
   closeBarcodeModal();
 }
 
@@ -137,6 +137,18 @@ window.onclick = function(event) {
   if (event.target == bcModal) {
     closeBarcodeModal();
   }
+}
+
+window.onload = function(event) {
+  callPyFunc("hoi");
+}
+
+function callPyFunc(input) {
+  $.ajax({
+      type: "POST",
+      url: "/python",
+      data: { func: input },
+  });
 }
 
 html5QrcodeScanner.start(
