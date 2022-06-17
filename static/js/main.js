@@ -118,14 +118,14 @@ function openModalBg() {
 
 function openModalNewInv() {
   // Code om python script te runnen background maken
-  
+  //callPyFunc("background");
   modalMakeBg.style.display = "none";
   modalMakeNewInv.style.display = "block";
 }
 
 function makeTemplate(){
   // Code om python script te runnen template maken
-  
+  //callPyFunc("template");
   closeBarcodeModal();
 }
 
