@@ -139,6 +139,18 @@ window.onclick = function(event) {
   }
 }
 
+window.onload = function(event) {
+  callPyFunc("hoi");
+}
+
+function callPyFunc(input) {
+  $.ajax({
+      type: "POST",
+      url: "/python",
+      data: { func: input },
+  });
+}
+
 html5QrcodeScanner.start(
   { facingMode: "environment"},
   config,
