@@ -27,8 +27,13 @@ class Match(db.Model):
     def __repr__(self):
         return '<Match %r>' % self.id
 
-@app.route('/', methods=['POST', 'GET', 'DELETE'])
+@app.route('/', methods=['GET'])
 def index():
+    products = Product.query.order_by(Product.date_created).all()
+    return render_template('index.html', products=products)
+
+@app.route('/scanner', methods=['POST', 'GET'])
+def scanner():
     if request.method == 'POST':
         productcode = request.form['productcode']
         product_name = request.form['product_name']
@@ -47,7 +52,12 @@ def index():
             return "Er is iets fout gegaan"
     else:
         products = Product.query.order_by(Product.date_created).all()
-        return render_template('index.html', products=products)
+        return render_template('scanner.html', products=products)
+
+@app.route('/producten', methods=['GET'])
+def products():
+    matches = Match.query.order_by(Match.date_created).all()
+    return render_template('products.html', matches=matches)
 
 @app.route('/delete/<int:id>', methods=['DELETE'])
 def delete(id):
