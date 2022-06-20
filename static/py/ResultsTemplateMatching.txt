@@ -1,0 +1,2 @@
+accuracy_score, template_name
+0.82%, template8.jpg
