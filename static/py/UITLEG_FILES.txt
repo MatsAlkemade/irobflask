@@ -1,0 +1,34 @@
+files explained:
+
+main.py
+Roept alle functionaliteiten aan die de koelkast moet kunnen.
+
+Fotocamera.py
+Als /Templates/ geen BG.jpg heeft maak die.
+Als /Templates/ geen new_Inv heeft maak die.
+Als beide aanwezig zijn 
+
+TemplateMakerRaspi.py
+Als in de /Templates/ folder BG.jpg en new_Inv.jpg gevonden worden 
+wordt een template uitgesneden op basis van new_Inv.
+Deze worden gedropt in de /Templates/ folder
+
+TemplateMatching_IMG_folder.py
+In de /Templates2/ folder staan nu een aantal pre-selected templates.
+Het algoritme kijkt naar /Templates/new_Inv.jpg om te zien wat de score is van
+elk template.
+
+resultsToText.py
+Zet de resultaten van TemplateMatching_IMG_folder.py om in een Text file
+DEZE MOET NOG AANGEPAST WORDEN OM DE .TXT OM TE ZETTEN NAAR .csv
+
+videocamera.py
+start een video verbinding op met de pi-cam
+
+databaseKoppeling.py
+Leest een .db table en schrijft een pandas df naar de .db
+
+histogram_matching.py
+Source,Reference,Match
+Verandert de pixel/kleurwaarden van een source op basis van reference en 
+levert dit op in een matched afbeelding.
