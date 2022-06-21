@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,9 +12,24 @@
     {% block head %}{% endblock %}
 </head>
 <body>
-    {% block body %}{% endblock %}
+    <div class="mobile-container">
+        <header>
+            <div class="nav">
+                <a href="/" class="nav__logo">Smart Fridge</a>
+                <div class="nav__list"  id="navList">
+                    <a href="/" class="nav__list__item">Home</a>
+                    <a href="/scanner" class="nav__list__item">Barcode Scanner</a>
+                    <a href="/producten" class="nav__list__item">Productenlijst</a>
+                </div>
+                <a href="javascript:void(0);" class="nav__btn" onclick="openNav()">
+                    <i class="fa-solid fa-bars"></i>
+                </a>
+            </div>
+            <h1 class="title">{% block title %}{% endblock %}</h1>
+        </header>
+        {% block body %}{% endblock %}
+    </div>
     <script src="https://code.jquery.com/jquery.js"></script>
-    <script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>    
     <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>

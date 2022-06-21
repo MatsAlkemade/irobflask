@@ -1,0 +1,30 @@
+.fridge {
+    display: flex;
+    justify-content: center;
+}
+
+.fridge__img {
+    width: 80%;
+}
+
+.template {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.template__btn > button{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    color: white;
+    background-color: darkorange;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 5px;
+}
+
+.template__btn > button:hover{
+    cursor: pointer;
+}
