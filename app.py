@@ -5,6 +5,7 @@ import pytz
 # import static.py.main as main
 # import static.py.refreshImg as refreshImg
 
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db = SQLAlchemy(app)
