@@ -2,7 +2,9 @@ from flask import Flask,jsonify,redirect,render_template,request,redirect,make_r
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import pytz
-import static.py.main as main
+# import static.py.main as main
+# import static.py.refreshImg as refreshImg
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
@@ -76,6 +78,10 @@ def delete(id):
 def python():
     # roep main.py aan
     return "Success"
+
+# app.route('/refreshimg', methods=["POST"])
+# def refreshimg():
+#     return refreshImg.refreshImg()
     
 @app.errorhandler(404)
 def page_not_found(e):
