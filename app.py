@@ -2,7 +2,7 @@ from flask import Flask,jsonify,redirect,render_template,request,redirect,make_r
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import pytz
-import static.py.main as main
+# import static.py.main as main
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
