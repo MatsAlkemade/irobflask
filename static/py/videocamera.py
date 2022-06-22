@@ -26,4 +26,4 @@ def video_on():
     cv2.destroyWindow("cam-test")
     #cv2.imwrite("AAAFOTO.jpg",img) #save image
 
-video_on()
+# video_on()
