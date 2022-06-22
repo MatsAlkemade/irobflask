@@ -243,6 +243,7 @@ def makeTemplate():
     plt.show()
     
     img = cv2.imread("OUTGESCHNEDEN_test.jpg")
+    img = im1
     cropped_img = img[y_min:(y_min+height), x_min:(x_min+width)]
     
 #     cv2.imshow("cropped", cropped_img)
