@@ -1,17 +1,33 @@
 .fridge {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 .fridge__img {
     width: 80%;
 }
 
+.refresh__btn {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    color: white;
+    background-color: darkorange;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 5px;
+}
+
+.refresh__btn:hover {
+    cursor: pointer;
+}
+
 .template {
     margin: 10px 0;
     display: flex;
-    align-items: center;
     flex-direction: column;
+    align-items: center;
 }
 
 .template__btn > button{

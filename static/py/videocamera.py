@@ -16,6 +16,7 @@ def video_on():
 
         s, img = cam.read()
         image = np.zeros(img.shape,np.uint8)
+        img = cv2.flip(img,0)
         cv2.imshow('frame',img)
         
         if cv2.waitKey(1) == ord('q'):
@@ -24,3 +25,5 @@ def video_on():
     cam.release()
     cv2.destroyWindow("cam-test")
     #cv2.imwrite("AAAFOTO.jpg",img) #save image
+
+# video_on()
