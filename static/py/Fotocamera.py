@@ -4,8 +4,8 @@ import os
 
 def makePhoto():
     print("Camera Start")
-    BG_path = "/home/pipernoot/project2/venv/Templates/BG.jpg"
-    new_Inv_path = "/home/pipernoot/project2/venv/Templates/new_Inv.jpg"
+    BG_path = "Templates/BG.jpg"
+    new_Inv_path = "Templates/new_Inv.jpg"
     
 
     # initialize the camera
@@ -16,6 +16,7 @@ def makePhoto():
     height = cam.get(cv2.CAP_PROP_FRAME_HEIGHT)
     print(width, height)
     s, img = cam.read()
+    img = cv2.flip(img,0)
     if s:    # frame captured without any errors
         #cv2.namedWindow("cam-test")
         #cv2.imshow("cam-test",img)

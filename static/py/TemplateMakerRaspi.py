@@ -9,8 +9,8 @@ import os.path
 def makeTemplate():
 #     im1 = mpimg.imread('assets/BBB.jpg')
 #     bg1 = mpimg.imread('assets/AAA.jpg')
-    im1 = mpimg.imread('Templates/new_Inv.jpg')
-    bg1 = mpimg.imread('Templates/BG.jpg')
+    im1 = cv2.imread('Templates/new_Inv.jpg')
+    bg1 = cv2.imread('Templates/BG.jpg')
 
     #test = mpimg.imread('assets/koelkast2.jpeg')
     # test = mpimg.imread('assets/bb_test4.jpeg')
@@ -129,8 +129,8 @@ def makeTemplate():
     # plt.hist(dst.flatten(),bins=100)
     # plt.show()
 
-    th = angle<0.996  # was 0.990
-    th2 = dst<0.996   # was 0.990
+    th = angle<0.990  # was 0.990
+    th2 = dst<0.990   # was 0.990
 
     #Alle waarden die de threshold niet halen worden weer op 0 gezet.
     dummy2 = np.copy(im1)
@@ -243,6 +243,7 @@ def makeTemplate():
     plt.show()
     
     img = cv2.imread("OUTGESCHNEDEN_test.jpg")
+    img = im1
     cropped_img = img[y_min:(y_min+height), x_min:(x_min+width)]
     
 #     cv2.imshow("cropped", cropped_img)

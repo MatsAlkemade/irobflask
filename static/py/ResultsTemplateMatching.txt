@@ -1,2 +1,1 @@
-accuracy_score, template_name
-0.82%, template8.jpg
+accuracy_score, template_name, barcode_name, datetime
