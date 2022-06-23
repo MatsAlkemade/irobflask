@@ -16,7 +16,7 @@ def matchTemplates():
 
     methods = [cv2.TM_CCOEFF_NORMED]
 
-    folder_dir = "/home/pipernoot/project2/venv/Templates2"
+    folder_dir = "Templates2"
     templates = []
     filenames = []
     results = []
@@ -44,15 +44,19 @@ def matchTemplates():
             if method in [cv2.TM_SQDIFF, cv2.TM_SQDIFF_NORMED]:
                 location = min_loc
                 # print(1, min_val, "---", max_val)
-            else:
-                if max_val > 0.70:
-                    result = f"{round(max_val,2)}%, {filenames[cursor]}"
-                    print("Match Found! Value:",result)
-                    results.append(result)
-
-                else:
-                    print("No match found")
+            else:                
+                result = f"{round(max_val,2)}%, {filenames[cursor]}"
+                print("Match Value:",result)
                 location = max_loc
+                
+#                 if max_val > 0.70:
+#                     result = f"{round(max_val,2)}%, {filenames[cursor]}"
+#                     print("Match Found! Value:",result)
+#                     results.append(result)
+# 
+#                 else:
+#                     print("No match found")
+#                 location = max_loc
 
             cursor += 1
             bottom_right = (location[0] + w, location[1] + h)
