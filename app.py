@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import pytz
 # import static.py.main as main
-# import static.py.refreshImg as refreshImg
+import static.py.refreshImg as refreshImg
 
 
 app = Flask(__name__)
@@ -79,9 +79,9 @@ def python():
     # roep main.py aan
     return "Success"
 
-# app.route('/refreshimg', methods=["POST"])
-# def refreshimg():
-#     return refreshImg.refreshImg()
+@app.route('/refreshimg', methods=["POST"])
+def refreshimg():
+    return refreshImg.refreshImg()
     
 @app.errorhandler(404)
 def page_not_found(e):
@@ -89,4 +89,3 @@ def page_not_found(e):
 
 if __name__ == "__main__":
     app.run(debug=True)
-
