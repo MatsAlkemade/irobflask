@@ -3,9 +3,9 @@ import os.path
 import os
 
 def refreshImg():
-    img_path = "../img/fridge.jpeg"
+    img_path = "/var/www/irobflask/static/img/fridge.jpeg"
 
-    cam = cv2.VideoCapture("/dev/video0")   # 0 -> index of camera
+    cam = cv2.VideoCapture(0)   # 0 -> index of camera
     cam.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
     cam.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
     width = cam.get(cv2.CAP_PROP_FRAME_WIDTH)

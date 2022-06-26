@@ -1,12 +1,14 @@
 const refreshBtn = document.getElementById("refresh__btn");
 
 function refreshImg() {
-    req = $.ajax({
-        url : '/refreshimg',
-        type : 'POST',
+    $.ajax({
+        type : "POST",
+        url : 'refreshimg',
+        success : callbackFunc
     });
-  
-    req.done(function(data){
-        console.log(data);
-    });
+}
+
+function callbackFunc(response){
+    console.log(response);
+    window.location.reload();
 }
