@@ -1,6 +1,7 @@
 from flask import Flask,jsonify,redirect,render_template,request,redirect,make_response
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from random import randint
 import pytz
 # import static.py.main as main
 import static.py.refreshImg as refreshImg
@@ -14,6 +15,7 @@ class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     productcode = db.Column(db.String(200), nullable=False)
     product_name = db.Column(db.String(200), nullable=False)
+    template_number = db.Column(db.String(200), nullable=False)
     date_created = db.Column(db.DateTime, default=datetime.now(pytz.timezone("Europe/Amsterdam")))
 
     def __repr__(self):
@@ -39,7 +41,12 @@ def scanner():
     if request.method == 'POST':
         productcode = request.form['productcode']
         product_name = request.form['product_name']
-        new_product = Product(productcode=productcode, product_name=product_name)
+        template_number = randomInt(0)
+        if template_number != "0":
+            new_product = Product(productcode=productcode, product_name=product_name, template_number=template_number)
+        else:
+            return "Error"
+        
         try:
             db.session.add(new_product)
             db.session.commit()
@@ -76,8 +83,17 @@ def delete(id):
 
 @app.route('/python', methods=["POST"])
 def python():
-    # roep main.py aan
-    return "Success"
+    if request.form['function'] == "background":
+        # Roep main aan om background te maken
+        return "Background success"
+    
+    elif request.form['function'] == "background":
+        template_number = Product.query.order_by(Product.date_created.desc()).first().template_number
+        # Roep main aan om template te maken en geef template number mee
+        return "Template success"
+    
+    else:
+        return "Fail"
 
 @app.route('/refreshimg', methods=["POST"])
 def refreshimg():
@@ -86,6 +102,16 @@ def refreshimg():
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
+
+def randomInt(attempts):
+    attempts = attempts
+    random_number = "%09d" % randint(0,999999999)
+    if bool(Product.query.filter_by(template_number = random_number).first()):
+        if attempts < 100:
+            attempts += 1
+            randomInt(attempts)
+        return "0"
+    return random_number
 
 if __name__ == "__main__":
     app.run(debug=True)
