@@ -3,6 +3,7 @@ import cv2
 import os
 import resultsToText as rtt
 from datetime import datetime
+import re
 
 
 def matchTemplates():
@@ -48,7 +49,8 @@ def matchTemplates():
             else:
                 now = datetime.now()
                 now = now.strftime("%d/%m/%Y %H:%M:%S")
-                result = f"{round(max_val*100,2)}%, {filenames[cursor]}, barcode{cursor}, {now}"
+                filename = re.sub("\D","",filenames[cursor])
+                result = f"{round(max_val*100,2)}%, {filename}, {now}"
                 print("Match Value:",result)
                 results.append(result)
                 location = max_loc
@@ -70,4 +72,4 @@ def matchTemplates():
             cv2.destroyAllWindows()
 
     rtt.writeToFile(results)
-# matchTemplates()
+matchTemplates()
