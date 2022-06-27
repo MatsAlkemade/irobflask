@@ -9,38 +9,40 @@
 
 {% block body %}
 <main>
-    <div class="barcodescanner">
-        <div class="scannerContainer">
-            <div id="qr-reader"></div>
-            <div id="cooldownBanner">
-                <img src="{{ url_for('static', filename='img/loading.svg') }}" alt="Loading...">
+    <div class="content-wrapper">
+        <div class="barcodescanner">
+            <div class="scannerContainer">
+                <div id="qr-reader"></div>
+                <div id="cooldownBanner">
+                    <img src="{{ url_for('static', filename='img/loading.svg') }}" alt="Loading...">
+                </div>
             </div>
         </div>
-    </div>
-    <div class="productlist">
-        <h1>Producten</h1>
-        <table class="productlist__table" id="productlist__table">
-            <thead>
-                <tr>
-                    <th>Product naam</th>
-                    <th>Productcode</th>
-                    <th>Datum toegevoegd</th>
-                    <th>Acties</th>
-                </tr>
-            </thead>
-            <tbody id="productlist__table__body">
-            {% for product in products %}
-                <tr id="{{ product.id }}">
-                    <td>{{ product.product_name }}</td>
-                    <td>{{ product.productcode }}</td>
-                    <td>{{ product.date_created.date() }}</td>
-                    <td>
-                        <button class="productlist__btn" onclick="deleteProduct('{{ product.id }}')">Verwijder</button>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+        <div class="productlist">
+            <h1>Producten</h1>
+            <table class="productlist__table" id="productlist__table">
+                <thead>
+                    <tr>
+                        <th>Product naam</th>
+                        <th>Productcode</th>
+                        <th>Datum toegevoegd</th>
+                        <th>Acties</th>
+                    </tr>
+                </thead>
+                <tbody id="productlist__table__body">
+                {% for product in products %}
+                    <tr id="{{ product.id }}">
+                        <td>{{ product.product_name }}</td>
+                        <td>{{ product.productcode }}</td>
+                        <td>{{ product.date_created.date() }}</td>
+                        <td>
+                            <button class="productlist__btn" onclick="deleteProduct('{{ product.id }}')">Verwijder</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
     <div id="bcModal" class="bcModal">
         <div id="bcModal-content" class="bcModal-content">

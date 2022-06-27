@@ -83,30 +83,35 @@ function saveBarcode() {
     });
     
     req.done(function(data){
-        setTimeout(() => {
-            const productList = document.getElementById("productlist__table__body");
+        if(data == "Error"){
+            closeBarcodeModal();
+            console.log("Er is iets fout gegaan bij het template nummer genereren");
+        } else{
+            setTimeout(() => {
+                const productList = document.getElementById("productlist__table__body");
+            
+                const row = productList.insertRow(-1);
+                row.setAttribute("id",data.id);
+            
+                const cell1 = row.insertCell(0);
+                cell1.innerHTML = data.product_name;
         
-            const row = productList.insertRow(-1);
-            row.setAttribute("id",data.id);
-          
-            const cell1 = row.insertCell(0);
-            cell1.innerHTML = data.product_name;
-      
-            const cell2 = row.insertCell(1);
-            cell2.innerHTML = data.productcode;
-      
-            const cell3 = row.insertCell(2);
-            cell3.innerHTML = data.date_created;
-      
-            const cell4 = row.insertCell(3);
-            const node_btn = document.createElement("button");
-            node_btn.innerHTML = "Verwijder";
-            node_btn.setAttribute("class","productlist__btn");
-            node_btn.setAttribute("onclick","deleteProduct("+data.id+")");
-            cell4.appendChild(node_btn);
-        }, 1000);
+                const cell2 = row.insertCell(1);
+                cell2.innerHTML = data.productcode;
         
-        openModalBg();
+                const cell3 = row.insertCell(2);
+                cell3.innerHTML = data.date_created;
+        
+                const cell4 = row.insertCell(3);
+                const node_btn = document.createElement("button");
+                node_btn.innerHTML = "Verwijder";
+                node_btn.setAttribute("class","productlist__btn");
+                node_btn.setAttribute("onclick","deleteProduct("+data.id+")");
+                cell4.appendChild(node_btn);
+            }, 1000);
+            
+            openModalBg();
+        }
     });
 }
   
@@ -117,14 +122,36 @@ function openModalBg() {
   
 function openModalNewInv() {
     // Code om python script te runnen background maken
-    //callPyFunc("background");
+    req = $.ajax({
+        url : '/python',
+        type : 'POST',
+        data : {
+            function : "background",
+        }
+    });
+
+    req.done(function(data){
+        console.log(data);
+    });
+
     modalMakeBg.style.display = "none";
     modalMakeNewInv.style.display = "block";
 }
   
 function makeTemplate(){
     // Code om python script te runnen template maken
-    //callPyFunc("template");
+    req = $.ajax({
+        url : '/python',
+        type : 'POST',
+        data : {
+            function : "template",
+        }
+    });
+
+    req.done(function(data){
+        console.log(data);
+    });
+
     closeBarcodeModal();
 }
   
@@ -136,14 +163,6 @@ window.onclick = function(event) {
     if (event.target == bcModal) {
         closeBarcodeModal();
     }
-}
-
-function callPyFunc(input) {
-    $.ajax({
-        type: "POST",
-        url: "/python",
-        data: { func: input },
-    });
 }
   
 html5QrcodeScanner.start(
