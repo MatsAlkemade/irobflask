@@ -21,4 +21,3 @@ elif command == "video":
     print("start video recording")
     videocam.video_on()
     
-    
