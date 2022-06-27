@@ -10,7 +10,7 @@ if command == "foto":
     print("foto made")
     
 elif command == "make":
-    tm.makeTemplate()
+    tm.makeTemplate("999999999")
     print("template made")
     
 elif command == "match":
