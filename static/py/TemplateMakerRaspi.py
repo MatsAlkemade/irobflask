@@ -6,11 +6,14 @@ import cv2
 import os
 import os.path
 
-def makeTemplate():
+def makeTemplate(template_number):
 #     im1 = mpimg.imread('assets/BBB.jpg')
 #     bg1 = mpimg.imread('assets/AAA.jpg')
-    im1 = cv2.imread('Templates/new_Inv.jpg')
-    bg1 = cv2.imread('Templates/BG.jpg')
+
+    abs_path = "/var/www/irobflask/static/py"
+
+    im1 = cv2.imread(f"{abs_path}/Templates/new_Inv.jpg")
+    bg1 = cv2.imread(f"{abs_path}/Templates/BG.jpg")
 
     #test = mpimg.imread('assets/koelkast2.jpeg')
     # test = mpimg.imread('assets/bb_test4.jpeg')
@@ -238,32 +241,33 @@ def makeTemplate():
 
     plt.axis("off")
     
-    plt.imsave("OUTGESCHNEDEN_test.jpg", test)
+    plt.imsave(f"{abs_path}/OUTGESCHNEDEN_test.jpg", test)
 #     print("Al gesaved maar nog niet geshowd")
-    plt.show()
+    # plt.show()
     
-    img = cv2.imread("OUTGESCHNEDEN_test.jpg")
+    img = cv2.imread(f"{abs_path}/OUTGESCHNEDEN_test.jpg")
     img = im1
     cropped_img = img[y_min:(y_min+height), x_min:(x_min+width)]
     
 #     cv2.imshow("cropped", cropped_img)
-    cv2.imwrite(("cropped_image.jpg"), cropped_img) # code to save template
+    cv2.imwrite((f"{abs_path}/cropped_image.jpg"), cropped_img) # code to save template
 #     print(y_min, x_min, height, width)
 #     print("y_min, x_min, height, width")
     
     # FILE NAMING PART OF THE CODE
-    x = 1
-    save = False
-    while save == False:
-        if os.path.exists(f"Templates/template{x}.jpg"):
-            x+=1
-            #print("Plus one")
+#     x = 1
+#     save = False
+#     while save == False:
+#         if os.path.exists(f"Templates/template{x}.jpg"):
+#             x+=1
+#             #print("Plus one")
 
-        else:
-            cv2.imwrite((f"Templates/template{x}.jpg"), cropped_img)
-#             plt.savefig(f"Templates/template{x}.jpg")
-            save = True
-            print(f"template{x} Saved")
+#         else:
+#             cv2.imwrite((f"Templates/template{x}.jpg"), cropped_img)
+# #             plt.savefig(f"Templates/template{x}.jpg")
+#             save = True
+#             print(f"template{x} Saved")
+    cv2.imwrite((f"{abs_path}/Templates/{template_number}.jpg"), cropped_img)
 
     #plt.show()
 # makeTemplate()

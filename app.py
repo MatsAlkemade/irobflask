@@ -5,6 +5,8 @@ from random import randint
 import pytz
 # import static.py.main as main
 import static.py.refreshImg as refreshImg
+import static.py.TemplateMakerRaspi as tm
+import static.py.Fotocamera as fc
 
 
 app = Flask(__name__)
@@ -16,7 +18,7 @@ class Product(db.Model):
     productcode = db.Column(db.String(200), nullable=False)
     product_name = db.Column(db.String(200), nullable=False)
     template_number = db.Column(db.String(200), nullable=False)
-    date_created = db.Column(db.DateTime, default=datetime.now(pytz.timezone("Europe/Amsterdam")))
+    date_created = db.Column(db.DateTime, nullable=False)
 
     def __repr__(self):
         return '<Product %r>' % self.id
@@ -42,8 +44,9 @@ def scanner():
         productcode = request.form['productcode']
         product_name = request.form['product_name']
         template_number = randomInt(0)
+        date_created = datetime.now(pytz.timezone("Europe/Amsterdam"))
         if template_number != "0":
-            new_product = Product(productcode=productcode, product_name=product_name, template_number=template_number)
+            new_product = Product(productcode=productcode, product_name=product_name, template_number=template_number, date_created=date_created)
         else:
             return "Error"
         
@@ -85,12 +88,15 @@ def delete(id):
 def python():
     if request.form['function'] == "background":
         # Roep main aan om background te maken
+        fc.makePhoto()
         return "Background success"
     
-    elif request.form['function'] == "background":
+    elif request.form['function'] == "template":
         template_number = Product.query.order_by(Product.date_created.desc()).first().template_number
         # Roep main aan om template te maken en geef template number mee
-        return "Template success"
+        fc.makePhoto()
+        tm.makeTemplate(template_number)
+        return template_number
     
     else:
         return "Fail"

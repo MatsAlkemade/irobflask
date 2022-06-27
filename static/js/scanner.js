@@ -12,6 +12,8 @@ const cooldownBanner = document.getElementById("cooldownBanner");
 const bcModal = document.getElementById("bcModal");
 const closeBcModalBtn = document.getElementById("closeBcModalBtn");
 const bcSaveBtn = document.getElementById("bcSaveBtn");
+const bgBtn = document.getElementById("bgBtn");
+const newInvBtn = document.getElementById("newInvBtn");
 const modalScanBc = document.getElementById("modalScanBc");
 const modalMakeBg = document.getElementById("modalMakeBg");
 const modalMakeNewInv = document.getElementById("modalMakeNewInv");
@@ -47,6 +49,10 @@ function closeBarcodeModal(){
     document.getElementById("productcode").value = "";
     document.getElementById("product_name").value = "";
     bcModal.style.display = "none";
+    
+    bcSaveBtn.disabled = false;
+    bgBtn.disabled = false;
+    newInvBtn.disabled = false;
   
     modalScanBc.style.display = "block";
     modalMakeNewInv.style.display = "none";
@@ -59,6 +65,7 @@ function closeBarcodeModal(){
 }
   
 bcSaveBtn.onclick = function() {
+    bcSaveBtn.disabled = true;
     if(document.getElementById("productcode").value == "" || document.getElementById("product_name").value == ""){
         document.getElementById("bcRequired").style.color = "rgba(255,0,0,1)";
     } else {
@@ -109,7 +116,7 @@ function saveBarcode() {
                 node_btn.setAttribute("onclick","deleteProduct("+data.id+")");
                 cell4.appendChild(node_btn);
             }, 1000);
-            
+            bcSaveBtn.disabled = false;
             openModalBg();
         }
     });
@@ -121,6 +128,7 @@ function openModalBg() {
 }
   
 function openModalNewInv() {
+    bgBtn.disabled = true;
     // Code om python script te runnen background maken
     req = $.ajax({
         url : '/python',
@@ -132,13 +140,14 @@ function openModalNewInv() {
 
     req.done(function(data){
         console.log(data);
+        modalMakeBg.style.display = "none";
+        modalMakeNewInv.style.display = "block";
+        bgBtn.disabled = false;
     });
-
-    modalMakeBg.style.display = "none";
-    modalMakeNewInv.style.display = "block";
 }
   
 function makeTemplate(){
+    newInvBtn.disabled = true;
     // Code om python script te runnen template maken
     req = $.ajax({
         url : '/python',
@@ -150,9 +159,9 @@ function makeTemplate(){
 
     req.done(function(data){
         console.log(data);
+        newInvBtn.disabled = false;
+        closeBarcodeModal();
     });
-
-    closeBarcodeModal();
 }
   
 closeBcModalBtn.onclick = function() {
