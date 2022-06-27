@@ -4,9 +4,11 @@ import os
 
 def makePhoto():
     print("Camera Start")
-    BG_path = "/home/pipernoot/project2/venv/Templates/BG.jpg"
-    new_Inv_path = "/home/pipernoot/project2/venv/Templates/new_Inv.jpg"
-    
+
+    abs_path = "/var/www/irobflask/static/py"
+
+    BG_path = f"{abs_path}/Templates/BG.jpg"
+    new_Inv_path = f"{abs_path}/Templates/new_Inv.jpg"
 
     # initialize the camera
     cam = cv2.VideoCapture(0)   # 0 -> index of camera
@@ -25,20 +27,20 @@ def makePhoto():
         if os.path.exists(BG_path) and os.path.exists(new_Inv_path):
             # Background wordt de laatste nieuwe inventory
             new_BG = new_Inv_path# Dit wordt nieuwe background
-            old_BG = "Templates/BG.jpg"
+            old_BG = BG_path
             os.rename(new_BG, old_BG)   #old file name, new file name
             print("Rename complete")
             
             # new inventory waarnemen
-            cv2.imwrite("Templates/new_Inv.jpg",img) #save image
+            cv2.imwrite(new_Inv_path,img) #save image
             
         
-        elif not os.path.exists("Templates/BG.jpg"):
-            cv2.imwrite("Templates/BG.jpg",img) #save image
+        elif not os.path.exists(BG_path):
+            cv2.imwrite(BG_path,img) #save image
             print("background saved")
             
-        elif os.path.exists("Templates/BG.jpg"):
-            new_inv = cv2.imwrite("Templates/new_Inv.jpg",img)
+        elif os.path.exists(BG_path):
+            new_inv = cv2.imwrite(new_Inv_path,img)
             print("new inventory saved")
 
 # makePhoto()
