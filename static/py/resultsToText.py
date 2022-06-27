@@ -1,7 +1,7 @@
 import pandas as pd
 
-file1 = "ResultsTemplateMatching"
-file2 = "barcode_db"
+file2 = "ResultsTemplateMatching"
+# file2 = "barcode_db"
 # 
 # read_file = pd.read_csv(f"{file2}.txt")
 # read_file.to_csv(rf'{file2}.csv', index=None)
@@ -19,3 +19,4 @@ def textToCSV():
 
 
 # writeToFile("Value: 0.99%")
+textToCSV()
