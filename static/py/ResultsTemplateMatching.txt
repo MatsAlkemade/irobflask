@@ -1,1 +1,9 @@
 accuracy_score, template_name, barcode_name, datetime
+48.26%, cropped image.jpg, barcode0, 26/06/2022 11:51:41
+38.61%, football.png, barcode1, 26/06/2022 11:51:42
+46.27%, football2.png, barcode2, 26/06/2022 11:51:43
+41.39%, football3.png, barcode3, 26/06/2022 11:51:43
+47.55%, template11.jpg, barcode4, 26/06/2022 11:51:44
+39.62%, template13.jpg, barcode5, 26/06/2022 11:51:45
+-2.46%, template14.jpg, barcode6, 26/06/2022 11:51:46
+64.23%, template15.jpg, barcode7, 26/06/2022 11:51:48
