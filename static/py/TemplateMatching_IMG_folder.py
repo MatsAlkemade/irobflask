@@ -2,6 +2,7 @@ import numpy as np
 import cv2
 import os
 import resultsToText as rtt
+from datetime import datetime
 
 
 def matchTemplates():
@@ -44,9 +45,12 @@ def matchTemplates():
             if method in [cv2.TM_SQDIFF, cv2.TM_SQDIFF_NORMED]:
                 location = min_loc
                 # print(1, min_val, "---", max_val)
-            else:                
-                result = f"{round(max_val,2)}%, {filenames[cursor]}"
+            else:
+                now = datetime.now()
+                now = now.strftime("%d/%m/%Y %H:%M:%S")
+                result = f"{round(max_val*100,2)}%, {filenames[cursor]}, barcode{cursor}, {now}"
                 print("Match Value:",result)
+                results.append(result)
                 location = max_loc
                 
 #                 if max_val > 0.70:
@@ -66,3 +70,4 @@ def matchTemplates():
             cv2.destroyAllWindows()
 
     rtt.writeToFile(results)
+# matchTemplates()
