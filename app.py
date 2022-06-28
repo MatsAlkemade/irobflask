@@ -114,6 +114,7 @@ def python():
 
     elif request.form['function'] == "matchtemplates":
         # roep match templates python aan
+        fc.makePhoto()
         tmg.matchTemplates()
         return "Success template matching"
 
