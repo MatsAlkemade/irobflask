@@ -25,7 +25,7 @@ while True:
 
     if QR_code == False:
         print("QR = False, Door is open")
-        sleep(20) # wacht 20 seconden tot dat waarschijnlijk de koelkast dicht is
+        sleep(120) # wacht 20 seconden tot dat waarschijnlijk de koelkast dicht is
         sf.makePhoto()
         QR_code = TemplateMatcher.matchTemplates()
 
