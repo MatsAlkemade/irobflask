@@ -134,7 +134,7 @@ function openModalNewInv() {
         url : '/python',
         type : 'POST',
         data : {
-            function : "background",
+            function : 'background',
         }
     });
 
@@ -153,7 +153,7 @@ function makeTemplate(){
         url : '/python',
         type : 'POST',
         data : {
-            function : "template",
+            function : 'template',
         }
     });
 
