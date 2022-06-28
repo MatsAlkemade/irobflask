@@ -4,7 +4,6 @@ from datetime import datetime
 from random import randint
 from time import sleep
 import pytz
-# import static.py.main as main
 import static.py.refreshImg as refreshImg
 import static.py.TemplateMakerRaspi as tm
 import static.py.Fotocamera as fc
@@ -16,38 +15,37 @@ db = SQLAlchemy(app)
 
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    productcode = db.Column(db.String(200), nullable=False)
+    barcode = db.Column(db.String(200), nullable=False)
     product_name = db.Column(db.String(200), nullable=False)
     template_number = db.Column(db.String(200), nullable=False)
-    date_created = db.Column(db.DateTime, nullable=False)
+    datetime_created = db.Column(db.DateTime, nullable=False)
 
     def __repr__(self):
         return '<Product %r>' % self.id
     
 class Match(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    template_name = db.Column(db.String(200))
+    accuracy_score = db.Column(db.String(200))
+    template_number = db.Column(db.String(200), primary_key=True)
+    datetime = db.Column(db.DateTime)
     product_name = db.Column(db.String(200))
-    accuracy = db.Column(db.String(200))
-    date_created = db.Column(db.DateTime)
     
     def __repr__(self):
         return '<Match %r>' % self.id
 
 @app.route('/', methods=['GET'])
 def index():
-    products = Product.query.order_by(Product.date_created).all()
+    products = Product.query.order_by(Product.datetime_created).all()
     return render_template('index.html', products=products)
 
 @app.route('/scanner', methods=['POST', 'GET'])
 def scanner():
     if request.method == 'POST':
-        productcode = request.form['productcode']
+        barcode = request.form['barcode']
         product_name = request.form['product_name']
         template_number = randomInt(0)
-        date_created = datetime.now(pytz.timezone("Europe/Amsterdam"))
+        datetime_created = datetime.now(pytz.timezone("Europe/Amsterdam"))
         if template_number != "0":
-            new_product = Product(productcode=productcode, product_name=product_name, template_number=template_number, date_created=date_created)
+            new_product = Product(barcode=barcode, product_name=product_name, template_number=template_number, datetime_created=datetime_created)
         else:
             return "Error"
         
@@ -56,20 +54,20 @@ def scanner():
             db.session.commit()
             return jsonify({
                 'id' : new_product.id,
-                'productcode' : new_product.productcode,
+                'barcode' : new_product.barcode,
                 'product_name' : new_product.product_name,
-                'date_created' : new_product.date_created.strftime("%Y") + "-" + new_product.date_created.strftime("%m") + "-" + new_product.date_created.strftime("%d")
+                'datetime_created' : new_product.datetime_created.strftime("%Y") + "-" + new_product.datetime_created.strftime("%m") + "-" + new_product.datetime_created.strftime("%d")
             })
                
         except:
             return "Er is iets fout gegaan"
     else:
-        products = Product.query.order_by(Product.date_created).all()
+        products = Product.query.order_by(Product.datetime_created).all()
         return render_template('scanner.html', products=products)
 
 @app.route('/producten', methods=['GET'])
 def products():
-    matches = Match.query.order_by(Match.date_created.desc()).all()
+    matches = Match.query.order_by(Match.datetime.desc()).all()
 
     return render_template('products.html', matches=matches)
 
@@ -94,7 +92,7 @@ def python():
         return "Background success"
     
     elif request.form['function'] == "template":
-        template_number = Product.query.order_by(Product.date_created.desc()).first().template_number
+        template_number = Product.query.order_by(Product.datetime_created.desc()).first().template_number
         # Roep main aan om template te maken en geef template number mee
         fc.makePhoto()
         tm.makeTemplate(template_number)
@@ -120,31 +118,6 @@ def randomInt(attempts):
             randomInt(attempts)
         return "0"
     return random_number
-
-def addMatches():
-    template_name = "123456789"
-    product_name = "Fles water"
-    accuracy = "99.99%"
-    date_created = datetime.now(pytz.timezone("Europe/Amsterdam"))
-
-    new_match = Match(template_name=template_name,product_name=product_name,accuracy=accuracy,date_created=date_created)
-
-    template_name2 = "000000000"
-    product_name2 = "Blikje cola"
-    accuracy2 = "19.99%"
-    date_created2 = datetime.now(pytz.timezone("Europe/Amsterdam"))
-
-    new_match2 = Match(template_name=template_name2,product_name=product_name2,accuracy=accuracy2,date_created=date_created2)
-
-    try:
-        db.session.add(new_match)
-        db.session.add(new_match2)
-        db.session.commit()
-        return "OK"
-    except:
-        return "Fout"
-
-# addMatches()
 
 if __name__ == "__main__":
     app.run(debug=True)
