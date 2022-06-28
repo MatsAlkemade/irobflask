@@ -48,6 +48,8 @@ function openBarcodeModal(){
 function closeBarcodeModal(){
     document.getElementById("barcode").value = "";
     document.getElementById("product_name").value = "";
+    document.getElementById("templateError").style.display = "none";
+
     bcModal.style.display = "none";
     
     bcSaveBtn.disabled = false;
@@ -68,12 +70,13 @@ bcSaveBtn.onclick = function() {
     bcSaveBtn.disabled = true;
     if(document.getElementById("barcode").value == "" || document.getElementById("product_name").value == ""){
         document.getElementById("bcRequired").style.color = "rgba(255,0,0,1)";
+        bcSaveBtn.disabled = false;
     } else {
         saveBarcode();
     }
     setTimeout(() => {
         document.getElementById("bcRequired").style.color = "rgba(255,0,0,0)";
-    }, 1000);
+    }, 2000);
 }
   
 function saveBarcode() {
@@ -142,6 +145,8 @@ function openModalNewInv() {
         console.log(data);
         modalMakeBg.style.display = "none";
         modalMakeNewInv.style.display = "block";
+        document.getElementById("templateError").style.display = "none";
+        newInvBtn.disabled = false;
         bgBtn.disabled = false;
     });
 }
@@ -159,8 +164,13 @@ function makeTemplate(){
 
     req.done(function(data){
         console.log(data);
-        newInvBtn.disabled = false;
-        closeBarcodeModal();
+        if (data == "S"){
+            closeBarcodeModal();
+        } else {
+            document.getElementById("templateError").style.display = "block";
+            modalMakeBg.style.display = "block";
+            modalMakeNewInv.style.display = "none";
+        }
     });
 }
   
