@@ -4,9 +4,12 @@ from datetime import datetime
 from random import randint
 from time import sleep
 import pytz
+import os
+
 import static.py.refreshImg as refreshImg
 import static.py.TemplateMakerRaspi as tm
 import static.py.Fotocamera as fc
+import static.py.TemplateMatching_IMG_folder as tmg
 
 
 app = Flask(__name__)
@@ -26,7 +29,7 @@ class Product(db.Model):
 class Match(db.Model):
     accuracy_score = db.Column(db.String(200))
     template_number = db.Column(db.String(200), primary_key=True)
-    datetime = db.Column(db.DateTime)
+    datetime = db.Column(db.String(200))
     product_name = db.Column(db.String(200))
     
     def __repr__(self):
@@ -75,6 +78,14 @@ def products():
 def delete(id):
     product_to_delete = Product.query.get_or_404(id)
 
+    templateImg = f"/var/www/irobflask/static/py/Templates/{product_to_delete.template_number}.jpg"
+
+    if os.path.exists(templateImg):
+        os.remove(templateImg)
+        print("Template deleted")
+    else:
+        print("Couldn't find template")
+
     try:
         db.session.delete(product_to_delete)
         db.session.commit()
@@ -103,6 +114,7 @@ def python():
 
     elif request.form['function'] == "matchtemplates":
         # roep match templates python aan
+        tmg.matchTemplates()
         return "Success template matching"
 
     else:

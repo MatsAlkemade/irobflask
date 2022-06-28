@@ -12,8 +12,8 @@ def makeTemplate(template_number):
 
     abs_path = "/var/www/irobflask/static/py"
 
-    im1 = cv2.imread(f"{abs_path}/Templates/new_Inv.jpg")
-    bg1 = cv2.imread(f"{abs_path}/Templates/BG.jpg")
+    im1 = cv2.imread(f"{abs_path}/Status/new_Inv.jpg")
+    bg1 = cv2.imread(f"{abs_path}/Status/BG.jpg")
 
     #test = mpimg.imread('assets/koelkast2.jpeg')
     # test = mpimg.imread('assets/bb_test4.jpeg')
