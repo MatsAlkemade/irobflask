@@ -1,9 +1,9 @@
-function refreshImg() {
+function matchTemplates() {
     $.ajax({
-        type : 'POST',
-        url : 'python',
+        type : "POST",
+        url : "python",
         data : {
-            function : 'refreshimg'
+            function : "matchtemplates",
         },
         success : callbackFunc
     });

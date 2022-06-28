@@ -98,12 +98,15 @@ def python():
         tm.makeTemplate(template_number)
         return template_number
     
+    elif request.form['function'] == "refreshimg":
+        return refreshImg.refreshImg()
+
+    elif request.form['function'] == "matchtemplates":
+        # roep match templates python aan
+        return "Success template matching"
+
     else:
         return "Fail"
-
-@app.route('/refreshimg', methods=["POST"])
-def refreshimg():
-    return refreshImg.refreshImg()
     
 @app.errorhandler(404)
 def page_not_found(e):

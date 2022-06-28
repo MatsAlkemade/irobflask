@@ -10,6 +10,7 @@
 {% block body %}
 <main>
     <div class="content-wrapper">
+        <button class="matchBtn" onclick="matchTemplates()">Match templates</button>
         <div class="grid">
         {% for match in matches %}
             <div class="product">
@@ -24,4 +25,5 @@
         </div>
     </div>
 </main>
+<script type="text/javascript" src="{{ url_for('static', filename='js/products.js') }}"></script>
 {% endblock %}
