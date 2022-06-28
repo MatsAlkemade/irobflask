@@ -48,13 +48,17 @@
         <div id="bcModal-content" class="bcModal-content">
             <span id="closeBcModalBtn" class="closeBcModalBtn">&times;</span>
             <div id="modalScanBc" class="modalScanBc">
-                <h2>Stap 1 - Barcode informatie</h2>
-                <form action="/scanner" method="POST" id="form" class="barcodeForm">
-                    <label for="barcode">Barcode    </label>
-                    <input type="text" name="barcode" id="barcode" value="" required>
+                <h2>Stap 1</h2>
+                <h3>Barcode informatie</h3>
+                <br>
+                <form action="/scanner" method="POST" id="form" class="bcForm">
+                    <label class="bcForm__label" for="barcode">Barcode</label>
                     <br>
-                    <label for="product_name">Product naam</label>
-                    <input type="text" name="product_name" id="product_name" value="" placeholder="Pak melk 1L..." required>
+                    <input class="bcForm__input" type="text" name="barcode" id="barcode" value="" required>
+                    <br>
+                    <label class="bcForm__label" for="product_name">Product naam</label>
+                    <br>
+                    <input class="bcForm__input" type="text" name="product_name" id="product_name" value="" placeholder="Pak melk 1L..." required>
                     <br>
                     <span id="bcRequired" style="color:rgba(255,0,0,0);font-size:11px;">Alle velden zijn verplicht</span>
                     <br>
@@ -62,13 +66,24 @@
                 </form>
             </div>
             <div id="modalMakeBg" class="modalMakeBg">
-                <h2>Stap 2 - Achtergrond foto</h2>
+                <h2>Stap 2</h2>
+                <h3>Achtergrond foto</h3>
+                <br>
+                <p>Plaats het product nog <span style="font-weight: bold;">niet</span> in de koelkast en zorg dat de koelkastdeur dicht is.</p>
+                <br>
                 <p>Klik op de knop om een achtergrond foto te maken.</p>
+                <br>
+                <p id="templateError" class="templateError">ERROR: Er is een fout opgetreden bij het maken van de template. Probeer het opnieuw.</p>
                 <button class="modalBtn" id="bgBtn" onclick="openModalNewInv()">Maak foto</button>
             </div>
             <div id="modalMakeNewInv" class="modalMakeNewInv">
-                <h2>Stap 3 - Maak template</h2>
+                <h2>Stap 3</h2>
+                <h3>Maak template</h3>
+                <br>
+                <p>Plaats het product in de koelkast en zorg dat de koelkastdeur dicht is.</p>
+                <br>
                 <p>Klik op de knop om een template te maken.</p>
+                <br>
                 <button class="modalBtn" id="newInvBtn" onclick="makeTemplate()">Maak template</button>
             </div>
         </div>

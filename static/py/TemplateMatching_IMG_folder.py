@@ -95,7 +95,7 @@ def textToCSV():
     read_file.to_csv(rf'{file2}.csv', index=None)
 
 def koppelDB():
-    conn = sqlite3.connect("test.db")
+    conn = sqlite3.connect("/var/www/irobflask/test.db")
     df2 = pd.read_sql_query("SELECT * FROM product", conn)
     pk = "template_number" ## primary key waarop databases gekoppeld worden
 

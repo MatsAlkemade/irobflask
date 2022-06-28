@@ -78,6 +78,10 @@ def products():
 def delete(id):
     product_to_delete = Product.query.get_or_404(id)
 
+    if Match.query.filter_by(template_number=product_to_delete.template_number).first():
+        match_to_delete = Match.query.filter_by(template_number=product_to_delete.template_number).first()
+        db.session.delete(match_to_delete)
+
     templateImg = f"/var/www/irobflask/static/py/Templates/{product_to_delete.template_number}.jpg"
 
     if os.path.exists(templateImg):
@@ -106,8 +110,7 @@ def python():
         template_number = Product.query.order_by(Product.datetime_created.desc()).first().template_number
         # Roep main aan om template te maken en geef template number mee
         fc.makePhoto()
-        tm.makeTemplate(template_number)
-        return template_number
+        return tm.makeTemplate(template_number)
     
     elif request.form['function'] == "refreshimg":
         return refreshImg.refreshImg()
