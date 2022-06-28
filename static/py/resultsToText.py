@@ -8,7 +8,7 @@ file2 = "ResultsTemplateMatching"
 
 def writeToFile(results):
     file1 = open("ResultsTemplateMatching.txt", "w")
-    file1.write("accuracy_score, template_name, datetime\n")
+    file1.write("accuracy_score,template_number,datetime\n")
     for result in results:
         file1.write(str(result)+"\n")
     file1.close()
