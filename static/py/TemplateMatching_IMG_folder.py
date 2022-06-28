@@ -2,6 +2,7 @@ import numpy as np
 import cv2
 import os
 import resultsToText as rtt
+import databaseKoppeling as dbK
 from datetime import datetime
 import re
 
@@ -18,7 +19,7 @@ def matchTemplates():
 
     methods = [cv2.TM_CCOEFF_NORMED]
 
-    folder_dir = "Templates2"
+    folder_dir = "Templates3"
     templates = []
     filenames = []
     results = []
@@ -50,7 +51,7 @@ def matchTemplates():
                 now = datetime.now()
                 now = now.strftime("%d/%m/%Y %H:%M:%S")
                 filename = re.sub("\D","",filenames[cursor])
-                result = f"{round(max_val*100,2)}%, {filename}, {now}"
+                result = f"{round(max_val*100,2)}%,{filename},{now}"
                 print("Match Value:",result)
                 results.append(result)
                 location = max_loc
@@ -72,4 +73,6 @@ def matchTemplates():
             cv2.destroyAllWindows()
 
     rtt.writeToFile(results)
+    rtt.textToCSV()
+    dbK.koppelDB()
 matchTemplates()

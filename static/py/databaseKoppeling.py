@@ -3,38 +3,38 @@ import sqlite3
 import numpy as np
 pd.options.display.max_columns = 20
 
-conn = sqlite3.connect('test.db')
-df2 = pd.read_sql_query("SELECT * FROM product3", conn)
-# print(df2)
-df2 = df2.dropna()
-del df2['id']
-del df2['barcode']
-del df2['datetime_created']
-# print(df2)
-# print()
+def koppelDB():
+    conn = sqlite3.connect('test.db')
+    df2 = pd.read_sql_query("SELECT * FROM product3", conn)
+    pk = "template_number" ## primary key waarop databases gekoppeld worden
 
-df1 = pd.read_csv("ResultsTemplateMatching.csv")
-template_names = list(df1["template_number(RNG)"])
-template_names2 = list(df2["template_number(RNG)"])
+    df2 = df2.dropna()
+    del df2['id']
+    del df2['barcode']
+    del df2['datetime_created']
+    print(df2)
+    print()
 
-template_names = [str(x) for x in template_names]
+    df1 = pd.read_csv("ResultsTemplateMatching.csv")
+    template_names = list(df1[pk])
+    template_names2 = list(df2[pk])
 
-df2 = df2[df2["template_number(RNG)"].isin(template_names)]
-df2["template_number(RNG)"] = df2["template_number(RNG)"].astype(str)
-df1["template_number(RNG)"] = df1["template_number(RNG)"].astype(str)
-# print(df2)
-# print(type(df2["product_name"]))
+    template_names = [str(x) for x in template_names]   # Maakt alle templatenumbers into strings zodat
+                                                        # beide kolommen strings zijn
 
-
-
-df = df1.merge(df2, how='inner', on="template_number(RNG)")
-print()
-print(df)
-
-# df = df.dropna()
-# del df["datetime_created"]
-# print(df)
-# df.to_csv("opgeslagen_dataframe",index=False)
+    df2 = df2[df2[pk].isin(template_names)]
+    df2[pk] = df2[pk].astype(str)
+    df1[pk] = df1[pk].astype(str)
 
 
+    print(df1)
+    print()
+
+    df = df1.merge(df2, how='inner', on=pk)
+    print()
+    print(df)
+
+    df.to_sql(con=conn, if_exists="replace", name='match', index=False) # schrijf naar database
+
+# koppelDB()
 
