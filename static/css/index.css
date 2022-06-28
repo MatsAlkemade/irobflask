@@ -17,10 +17,12 @@
     border-radius: 5px;
     padding: 5px;
     margin-top: 5px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,.5);
 }
 
 .refresh__btn:hover {
     cursor: pointer;
+    background-color: orange;
 }
 
 .template {
@@ -39,8 +41,10 @@
     border-radius: 5px;
     padding: 5px;
     margin-top: 5px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,.5);
 }
 
 .template__btn > button:hover{
     cursor: pointer;
+    background-color: orange;
 }

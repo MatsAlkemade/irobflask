@@ -8,9 +8,15 @@
     max-width: 480px;
 }
 
+@media only screen and (orientation: landscape) and (max-device-width: 1000px) {
+    .mobile-container {
+        max-width: 100%;
+    }
+}
+
 main {
     font-family: 'Montserrat', sans-serif;
-    margin-top: 5px;
+    margin: 5px 0;
 }
 
 button:disabled {
@@ -67,6 +73,6 @@ button:disabled {
 
 .title {
     font-family: 'Montserrat', sans-serif;
-    margin-top: 5px;
+    margin-top: 10px;
     text-align: center;
 }

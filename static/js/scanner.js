@@ -23,7 +23,7 @@ function qrCodeSuccessCallback(decodedText, decodedResult){
         scanCooldown = true;
         cooldownBanner.style.display = "flex";
         openBarcodeModal();
-        document.getElementById("productcode").value = decodedResult.result.text;
+        document.getElementById("barcode").value = decodedResult.result.text;
     }
 }
 
@@ -46,7 +46,7 @@ function openBarcodeModal(){
 }
   
 function closeBarcodeModal(){
-    document.getElementById("productcode").value = "";
+    document.getElementById("barcode").value = "";
     document.getElementById("product_name").value = "";
     bcModal.style.display = "none";
     
@@ -66,7 +66,7 @@ function closeBarcodeModal(){
   
 bcSaveBtn.onclick = function() {
     bcSaveBtn.disabled = true;
-    if(document.getElementById("productcode").value == "" || document.getElementById("product_name").value == ""){
+    if(document.getElementById("barcode").value == "" || document.getElementById("product_name").value == ""){
         document.getElementById("bcRequired").style.color = "rgba(255,0,0,1)";
     } else {
         saveBarcode();
@@ -77,14 +77,14 @@ bcSaveBtn.onclick = function() {
 }
   
 function saveBarcode() {
-    var productcode = document.getElementById("productcode").value;
+    var barcode = document.getElementById("barcode").value;
     var product_name = document.getElementById("product_name").value;
       
     req = $.ajax({
         url : '/scanner',
         type : 'POST',
         data : {
-            productcode : productcode,
+            barcode : barcode,
             product_name : product_name,
         }
     });
@@ -104,10 +104,10 @@ function saveBarcode() {
                 cell1.innerHTML = data.product_name;
         
                 const cell2 = row.insertCell(1);
-                cell2.innerHTML = data.productcode;
+                cell2.innerHTML = data.barcode;
         
                 const cell3 = row.insertCell(2);
-                cell3.innerHTML = data.date_created;
+                cell3.innerHTML = data.datetime_created;
         
                 const cell4 = row.insertCell(3);
                 const node_btn = document.createElement("button");
@@ -134,7 +134,7 @@ function openModalNewInv() {
         url : '/python',
         type : 'POST',
         data : {
-            function : "background",
+            function : 'background',
         }
     });
 
@@ -153,7 +153,7 @@ function makeTemplate(){
         url : '/python',
         type : 'POST',
         data : {
-            function : "template",
+            function : 'template',
         }
     });
 

@@ -27,4 +27,4 @@ def refreshImg():
         print("Failed at s")
         return "Failed at s"
 
-refreshImg()
+# refreshImg()

@@ -8,9 +8,10 @@ import re
 
 
 def matchTemplates():
+    abs_path = "/var/www/irobflask/static/py"
     # img = cv2.resize(cv2.imread('assets/football_match.jpg', 0), (0, 0), fx=0.8, fy=0.8)
 #     img = cv2.imread('assets/football_match.jpg')
-    img = cv2.imread('Templates/new_Inv.jpg')
+    img = cv2.imread(f"{abs_path}/Templates/new_Inv.jpg")
     # template = cv2.resize(cv2.imread('assets/football.png', 0), (0, 0), fx=0.8, fy=0.8)
     # h, w = template.shape
 
