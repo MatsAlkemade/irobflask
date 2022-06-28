@@ -2,6 +2,7 @@ from flask import Flask,jsonify,redirect,render_template,request,redirect,make_r
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from random import randint
+from time import sleep
 import pytz
 # import static.py.main as main
 import static.py.refreshImg as refreshImg
@@ -26,8 +27,8 @@ class Product(db.Model):
 class Match(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     template_name = db.Column(db.String(200))
-    accuracy = db.Column(db.Integer)
-    barcode = db.Column(db.String(200))
+    product_name = db.Column(db.String(200))
+    accuracy = db.Column(db.String(200))
     date_created = db.Column(db.DateTime)
     
     def __repr__(self):
@@ -68,7 +69,8 @@ def scanner():
 
 @app.route('/producten', methods=['GET'])
 def products():
-    matches = Match.query.order_by(Match.date_created).all()
+    matches = Match.query.order_by(Match.date_created.desc()).all()
+
     return render_template('products.html', matches=matches)
 
 @app.route('/delete/<int:id>', methods=['DELETE'])
@@ -118,6 +120,31 @@ def randomInt(attempts):
             randomInt(attempts)
         return "0"
     return random_number
+
+def addMatches():
+    template_name = "123456789"
+    product_name = "Fles water"
+    accuracy = "99.99%"
+    date_created = datetime.now(pytz.timezone("Europe/Amsterdam"))
+
+    new_match = Match(template_name=template_name,product_name=product_name,accuracy=accuracy,date_created=date_created)
+
+    template_name2 = "000000000"
+    product_name2 = "Blikje cola"
+    accuracy2 = "19.99%"
+    date_created2 = datetime.now(pytz.timezone("Europe/Amsterdam"))
+
+    new_match2 = Match(template_name=template_name2,product_name=product_name2,accuracy=accuracy2,date_created=date_created2)
+
+    try:
+        db.session.add(new_match)
+        db.session.add(new_match2)
+        db.session.commit()
+        return "OK"
+    except:
+        return "Fout"
+
+# addMatches()
 
 if __name__ == "__main__":
     app.run(debug=True)

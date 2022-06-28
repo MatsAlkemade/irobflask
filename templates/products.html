@@ -9,6 +9,19 @@
 
 {% block body %}
 <main>
-
+    <div class="content-wrapper">
+        <div class="grid">
+        {% for match in matches %}
+            <div class="product">
+                <div class="image-container">
+                    <img class="product__img" src="{{ url_for('static', filename='/py/Templates/'+match.template_name+'.jpg') }}" alt="{{ match.template_name }}">
+                </div>
+                <p class="product__name">{{ match.product_name }}</p>
+                <p class="product__acc">{{ match.accuracy }}</p>
+                <p class="product__date">{{ match.date_created.date() }}</p>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
 </main>
 {% endblock %}
