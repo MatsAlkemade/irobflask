@@ -7,8 +7,8 @@ def makePhoto():
 
     abs_path = "/var/www/irobflask/static/py"
 
-    BG_path = f"{abs_path}/Templates/BG.jpg"
-    new_Inv_path = f"{abs_path}/Templates/new_Inv.jpg"
+    BG_path = f"{abs_path}/Status/BG.jpg"
+    new_Inv_path = f"{abs_path}/Status/new_Inv.jpg"
 
     # initialize the camera
     cam = cv2.VideoCapture(0)   # 0 -> index of camera

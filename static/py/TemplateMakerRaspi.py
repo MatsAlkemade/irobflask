@@ -12,8 +12,8 @@ def makeTemplate(template_number):
 
     abs_path = "/var/www/irobflask/static/py"
 
-    im1 = cv2.imread(f"{abs_path}/Templates/new_Inv.jpg")
-    bg1 = cv2.imread(f"{abs_path}/Templates/BG.jpg")
+    im1 = cv2.imread(f"{abs_path}/Status/new_Inv.jpg")
+    bg1 = cv2.imread(f"{abs_path}/Status/BG.jpg")
 
     #test = mpimg.imread('assets/koelkast2.jpeg')
     # test = mpimg.imread('assets/bb_test4.jpeg')
@@ -207,9 +207,12 @@ def makeTemplate(template_number):
     # print(y_cords)
     # print(x_cords)
 
-    height = (y_cords[-1] - y_cords[0]) + 1  # +1 want de coordinates zijn index based
-    width = x_cords.sort()
-    width = (x_cords[-1] - x_cords[0]) + 1  # +1 want de coordinates zijn index based
+    if len(y_cords) > 0:
+        height = (y_cords[-1] - y_cords[0]) + 1  # +1 want de coordinates zijn index based
+        width = x_cords.sort()
+        width = (x_cords[-1] - x_cords[0]) + 1  # +1 want de coordinates zijn index based
+    else:
+        return "F"
     #print(x_cords)
 
     #print("Height:", height, "pixels")
@@ -269,5 +272,6 @@ def makeTemplate(template_number):
 #             print(f"template{x} Saved")
     cv2.imwrite((f"{abs_path}/Templates/{template_number}.jpg"), cropped_img)
 
+    return "S"
     #plt.show()
 # makeTemplate()

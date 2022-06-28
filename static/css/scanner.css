@@ -105,10 +105,33 @@ table, th, td {
     cursor: pointer;
 }
 
+.bcForm__label {
+    font-weight: 600;
+}
+
+.bcForm__input{
+    padding: 2px;
+    border-radius: 2px;
+    border: 1px solid #5f5f5f;
+    width: 200px;
+    font-family:  'Montserrat', sans-serif;
+    font-size: 16px;
+}
+
+.bcForm__input:first-of-type {
+    margin-bottom: 10px;
+}
+
 .modalMakeBg {
     display: none;
 }
 
 .modalMakeNewInv {
     display: none;
+}
+
+.templateError {
+    color:red;
+    display:none;
+    font-size:12px;
 }
