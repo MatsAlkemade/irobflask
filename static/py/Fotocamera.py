@@ -18,6 +18,7 @@ def makePhoto():
     height = cam.get(cv2.CAP_PROP_FRAME_HEIGHT)
     print(width, height)
     s, img = cam.read()
+    img = cv2.flip(img,0)
     if s:    # frame captured without any errors
         #cv2.namedWindow("cam-test")
         #cv2.imshow("cam-test",img)

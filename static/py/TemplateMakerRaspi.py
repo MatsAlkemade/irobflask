@@ -9,8 +9,10 @@ import os.path
 def makeTemplate(template_number):
 #     im1 = mpimg.imread('assets/BBB.jpg')
 #     bg1 = mpimg.imread('assets/AAA.jpg')
-
     abs_path = "/var/www/irobflask/static/py"
+
+    threshold = 0.990
+    minTempSize = 25
 
     im1 = cv2.imread(f"{abs_path}/Status/new_Inv.jpg")
     bg1 = cv2.imread(f"{abs_path}/Status/BG.jpg")
@@ -132,8 +134,8 @@ def makeTemplate(template_number):
     # plt.hist(dst.flatten(),bins=100)
     # plt.show()
 
-    th = angle<0.990  # was 0.990
-    th2 = dst<0.990   # was 0.990
+    th = angle<threshold  # was 0.990
+    th2 = dst<threshold   # was 0.990
 
     #Alle waarden die de threshold niet halen worden weer op 0 gezet.
     dummy2 = np.copy(im1)
@@ -203,14 +205,12 @@ def makeTemplate(template_number):
             x_loc += 1
         y_loc += 1
 
-    print()
-    # print(y_cords)
-    # print(x_cords)
-
     if len(y_cords) > 0:
         height = (y_cords[-1] - y_cords[0]) + 1  # +1 want de coordinates zijn index based
         width = x_cords.sort()
         width = (x_cords[-1] - x_cords[0]) + 1  # +1 want de coordinates zijn index based
+        if height < minTempSize or width < minTempSize:
+            return "F"
     else:
         return "F"
     #print(x_cords)
