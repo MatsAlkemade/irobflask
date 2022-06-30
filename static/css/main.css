@@ -4,8 +4,16 @@
     box-sizing: border-box;
 }
 
+body {
+    display: flex;
+    justify-content: center;
+}
+
 .mobile-container {
+    min-width: 360px;
     max-width: 480px;
+    min-height: 100vh;
+    box-shadow: 0 0 5px 3px rgba(0,0,0,.15);
 }
 
 @media only screen and (orientation: landscape) and (max-device-width: 1000px) {
