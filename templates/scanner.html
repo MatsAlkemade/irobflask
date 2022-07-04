@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Smart Fridge - Barcode Scanner</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/scanner.css') }}">
+{% endblock %}
+
+{% block title %}Barcode Scanner{% endblock %}
+
+{% block body %}
+<main>
+    <div class="content-wrapper">
+        <div class="barcodescanner">
+            <div class="scannerContainer">
+                <div id="qr-reader"></div>
+                <div id="cooldownBanner">
+                    <img src="{{ url_for('static', filename='img/loading.svg') }}" alt="Loading...">
+                </div>
+            </div>
+        </div>
+        <div class="productlist">
+            <h1>Producten</h1>
+            <table class="productlist__table" id="productlist__table">
+                <thead>
+                    <tr>
+                        <th>Product naam</th>
+                        <th>Barcode</th>
+                        <th>Datum toegevoegd</th>
+                        <th>Acties</th>
+                    </tr>
+                </thead>
+                <tbody id="productlist__table__body">
+                {% for product in products %}
+                    <tr id="{{ product.id }}">
+                        <td>{{ product.product_name }}</td>
+                        <td>{{ product.barcode }}</td>
+                        <td>{{ product.datetime_created.date() }}</td>
+                        <td>
+                            <button class="productlist__btn" onclick="deleteProduct('{{ product.id }}')">Verwijder</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="bcModal" class="bcModal">
+        <div id="bcModal-content" class="bcModal-content">
+            <span id="closeBcModalBtn" class="closeBcModalBtn">&times;</span>
+            <div id="modalScanBc" class="modalScanBc">
+                <h2>Stap 1</h2>
+                <h3>Barcode informatie</h3>
+                <br>
+                <form autocomplete="off" action="/scanner" method="POST" id="form" class="bcForm">
+                    <input autocomplete="false" name="hidden" type="text" style="display:none;">
+                    <label class="bcForm__label" for="barcode">Barcode</label>
+                    <br>
+                    <input class="bcForm__input" type="text" name="barcode" id="barcode" value="" required>
+                    <br>
+                    <label class="bcForm__label" for="product_name">Product naam</label>
+                    <br>
+                    <input class="bcForm__input" type="text" name="product_name" id="product_name" value="" placeholder="Pak melk 1L..." required>
+                    <br>
+                    <span id="bcRequired" style="color:rgba(255,0,0,0);font-size:11px;">Alle velden zijn verplicht</span>
+                    <br>
+                    <button type="button" class="modalBtn" id="bcSaveBtn">Opslaan</button>
+                </form>
+            </div>
+            <div id="modalMakeBg" class="modalMakeBg">
+                <h2>Stap 2</h2>
+                <h3>Achtergrond foto</h3>
+                <br>
+                <p>Plaats het product nog <span style="font-weight: bold;">niet</span> in de koelkast en zorg dat de koelkastdeur dicht is.</p>
+                <br>
+                <p>Klik op de knop om een achtergrond foto te maken.</p>
+                <br>
+                <p id="templateError" class="templateError">ERROR: Er is een fout opgetreden bij het maken van de template. Probeer het opnieuw.</p>
+                <button class="modalBtn" id="bgBtn" onclick="openModalNewInv()">Maak foto</button>
+            </div>
+            <div id="modalMakeNewInv" class="modalMakeNewInv">
+                <h2>Stap 3</h2>
+                <h3>Maak template</h3>
+                <br>
+                <p>Plaats het product in de koelkast en zorg dat de koelkastdeur dicht is.</p>
+                <br>
+                <p>Klik op de knop om een template te maken.</p>
+                <br>
+                <button class="modalBtn" id="newInvBtn" onclick="makeTemplate()">Maak template</button>
+            </div>
+        </div>
+    </div>
+</main>
+<script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/scanner.js') }}"></script>
+{% endblock %}

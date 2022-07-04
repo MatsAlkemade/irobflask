@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Smart Fridge - Productenlijst</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/products.css') }}">
+{% endblock %}
+
+{% block title %}Productenlijst{% endblock %}
+
+{% block body %}
+<main>
+    <div class="content-wrapper">
+        <button class="matchBtn" onclick="matchTemplates()">Match templates</button>
+        <div class="grid">
+        {% for match in matches %}
+            <div class="product">
+                <div class="image-container">
+                    <img class="product__img" src="{{ url_for('static', filename='/py/Templates/'+match.template_number+'.jpg') }}" alt="{{ match.template_number }}">
+                </div>
+                <p class="product__name">{{ match.product_name }}</p>
+                <p class="product__acc">{{ match.accuracy_score }}</p>
+                <p class="product__date">{{ match.datetime }}</p>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+</main>
+<script type="text/javascript" src="{{ url_for('static', filename='js/products.js') }}"></script>
+{% endblock %}
