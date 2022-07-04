@@ -70,7 +70,7 @@ def scanner():
 
 @app.route('/producten', methods=['GET'])
 def products():
-    matches = Match.query.order_by(Match.datetime.desc()).all()
+    matches = Match.query.order_by(Match.accuracy_score.desc()).all()
 
     return render_template('products.html', matches=matches)
 

@@ -51,7 +51,8 @@
                 <h2>Stap 1</h2>
                 <h3>Barcode informatie</h3>
                 <br>
-                <form action="/scanner" method="POST" id="form" class="bcForm">
+                <form autocomplete="off" action="/scanner" method="POST" id="form" class="bcForm">
+                    <input autocomplete="false" name="hidden" type="text" style="display:none;">
                     <label class="bcForm__label" for="barcode">Barcode</label>
                     <br>
                     <input class="bcForm__input" type="text" name="barcode" id="barcode" value="" required>

@@ -12,6 +12,7 @@ def refreshImg():
     height = cam.get(cv2.CAP_PROP_FRAME_HEIGHT)
 
     s, img = cam.read()
+    img = cv2.flip(img,0)
 
     if s:    # frame captured without any errors
         if os.path.exists(img_path):
